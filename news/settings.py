@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'panel',
     'users',
     # 'martor',
+    'qr_code',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'resources'
+]
 
 
 # MarkDown Settings

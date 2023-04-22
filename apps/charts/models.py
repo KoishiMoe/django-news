@@ -28,7 +28,7 @@ class DataPoint(models.Model):
     :param value: 数据点值
     """
     label = models.CharField(max_length=100)
-    value = models.IntegerField()
+    value = models.FloatField()
 
     def __str__(self):
         return self.label

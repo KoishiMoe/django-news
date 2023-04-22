@@ -6,6 +6,18 @@ from django.utils import timezone
 
 
 class Post(models.Model):
+    """
+    新闻
+    :param title: 新闻标题
+    :param body: 新闻内容
+    :param image: 新闻图片（单张，可选）
+    :param created_time: 新闻创建时间
+    :param modified_time: 新闻修改时间
+    :param excerpt: 新闻摘要（可选）
+    :param category: 新闻分类
+    :param tags: 新闻标签（可选）
+    :param author: 新闻作者
+    """
     title = models.CharField(max_length=70)
     body = models.TextField()
     image = models.ImageField(upload_to='posts/%Y/%m/%d', blank=True)
@@ -25,6 +37,9 @@ class Post(models.Model):
 
 
 class Category(models.Model):
+    """
+    新闻分类
+    """
     name = models.CharField(max_length=20)
 
     def __str__(self):
@@ -32,6 +47,9 @@ class Category(models.Model):
 
 
 class Tag(models.Model):
+    """
+    新闻标签
+    """
     name = models.CharField(max_length=20)
 
     def __str__(self):

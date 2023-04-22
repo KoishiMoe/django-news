@@ -1,7 +1,5 @@
 from django.db import models
 
-from apps import markets, charts
-
 
 # Create your models here.
 
@@ -16,7 +14,7 @@ class Chart(models.Model):
     """
     title = models.CharField(max_length=100)
     description = models.TextField()
-    market = models.ForeignKey('markets.Market', on_delete=models.CASCADE)
+    market = models.ForeignKey('charts.Market', on_delete=models.CASCADE)
     data = models.ManyToManyField('charts.DataPoint')
 
     def __str__(self):
@@ -34,3 +32,16 @@ class DataPoint(models.Model):
 
     def __str__(self):
         return self.label
+
+
+class Market(models.Model):
+    """
+    市场，作用是区分各个曲线的所属类型，例如分为A股，美股，港股等
+    """
+    name = models.CharField(max_length=50)
+    description = models.TextField()
+    created_time = models.DateTimeField(auto_now_add=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-from apps import users
-
 
 # Create your models here.
 
@@ -14,8 +12,8 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     modified_time = models.DateTimeField()
     excerpt = models.CharField(max_length=200, blank=True)
-    category = models.ForeignKey('news.Category', on_delete=models.CASCADE)
-    tags = models.ManyToManyField('news.Tag', blank=True)
+    category = models.ForeignKey('posts.Category', on_delete=models.CASCADE)
+    tags = models.ManyToManyField('posts.Tag', blank=True)
     author = models.ForeignKey('users.User', on_delete=models.CASCADE)
 
     def __str__(self):

@@ -17,7 +17,6 @@ class Chart(models.Model):
 
 
 class DataPoint(models.Model):
-    chart = models.ForeignKey('charts.Chart', on_delete=models.CASCADE)
     label = models.CharField(max_length=100)
     value = models.IntegerField()
 

@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'users',
     # 'martor',
     'qr_code',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [

@@ -23,4 +23,7 @@ urlpatterns = [
     # path('martor/', include('martor.urls')),
     path('posts/', include('posts.urls')),
     path('comments/', include('comments.urls')),
+    path('', include('home.urls')),
+    path('login/', include('users.urls')),
+    path('logout/', include('users.urls')),
 ]

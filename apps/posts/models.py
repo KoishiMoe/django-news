@@ -80,6 +80,10 @@ class Category(models.Model):
             pass
         super().clean()
 
+    @property
+    def subcategories(self):
+        return Category.objects.filter(parent=self)
+
 
 class Tag(models.Model):
     """

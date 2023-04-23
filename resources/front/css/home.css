@@ -45,3 +45,8 @@
     text-decoration: none;
 }
 
+.carousel .item img {
+  max-height: 300px;
+  min-width: auto;
+}
+

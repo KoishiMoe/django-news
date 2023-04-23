@@ -10,13 +10,26 @@
 
 {% block mainblock %}
     <main class="container">
-        <div class="card bg-light text-black card-bg-image"
-             style="background-image: url('{{ featured.get_image_url }}')">
-            <div class="card-body">
-                <h1 autocapitalize="words" class="card-title fst-italic">{{ featured.title }}</h1>
-                <a class="card-text stretched-link no-style-link" href="{{ featured.get_absolute_url }}">{{ featured.excerpt }}</a>
-            </div>
+    <div id="carouselFeaturedPosts" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for post in featured_posts %}
+            <button type="button" data-bs-target="#carouselFeaturedPosts" data-bs-slide-to="{{ forloop.counter0 }}"
+                    class="{% if forloop.first %}active{% endif %}" aria-current="true"
+                    aria-label="Slide {{ forloop.counter0 }}"></button>
+            {% endfor %}
         </div>
+        <div class="carousel-inner">
+            {% for post in featured_posts %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ post.get_image_url }}" style="object-fit: cover; width: inherit; height: 400px;" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                    <h1>{{ post.title }}</h1>
+                    <a class="text stretched-link no-style-link" style="font-size: 1.5rem"
+                       href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
 
 
     <div class="row row-cols-1 row-cols-sm-2 g-4">
@@ -36,7 +49,6 @@
         </div>
         {% endfor %}
     </div>
-
 
 
 {#            <div class="card mb-3" style="height: 300px">#}

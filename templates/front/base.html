@@ -16,51 +16,61 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> | {{ site.name }}</title>
+    <title>{% block title %} {% endblock %} | {{ site.name }}</title>
+    <link rel="icon" href="{% static 'images/icons/favicon.ico' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'front/css/base.css' %}">
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-light bg-light rounded">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">{{ site.name }}</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
-                    {% for i in categories %}
-                    <li class="nav-item dropdown">  <-- 不加dropdown会让下拉菜单出现在错误的位置
-                        <a class="nav-link dropdown-toggle" href="/category/{{ i.name }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<nav class="navbar navbar-expand-sm navbar-light bg-light rounded">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'home' %}">{{ site.name }}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                {% for i in categories %}
+                    <li class="nav-item dropdown"> <-- 不加dropdown会让下拉菜单出现在错误的位置
+                        <a class="nav-link dropdown-toggle" href="/category/{{ i.name }}" id="navbarDropdown"
+                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             {{ i.name }}</a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">  <-- 对齐末尾，避免尾端超出屏幕
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> <-- 对齐末尾，避免尾端超出屏幕
                             {% for j in i.subcategories %}
-                            <li><a class="dropdown-item" href="/category/{{ j.name }}">{{ j.name }}</a></li>
+                                <li><a class="dropdown-item" href="/category/{{ j.name }}">{{ j.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    {% endfor %}
-                    {% if user.is_authenticated %}
+                {% endfor %}
+                {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{% url 'panel' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="{% url 'panel' %}" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
                             {{ user.username }}</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{% url 'panel' %}">管理</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">登出</a></li>
                         </ul>
                     </li>
-                    {% else %}
+                {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">登陆/注册</a>
                     </li>
-                    {% endif %}
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
 {% block mainblock %}
 
 {% endblock %}
 
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">© 2023 {{ site.name }}. 保留所有权利.</span>
+    </div>
+</footer>
 </body>
 </html>

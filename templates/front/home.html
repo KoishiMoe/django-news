@@ -1,1 +1,39 @@
 {% extends 'front/base.html' %}
+{% load static %}
+
+{% block headblock %}
+<link rel="stylesheet" href="{% static 'front/css/home.css' %}">
+{#<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>#}
+{% endblock %}
+
+{% block title %}主页{% endblock %}
+
+{% block mainblock %}
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 fst-italic">{{ featured.title }}</h1>
+            <p class="lead my-3">{{ featured.excerpt }}</p>
+            <p class="lead mb-0"><a href="{{ featured.get_url }}" class="text-white fw-bold">了解更多</a></p>
+            <img src="{{ featured.image.url }}" alt="" class="img-fluid bg-img-center">
+        </div>
+    </div>
+
+    {% for post in latest %}
+    <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+                <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>
+                <h3 class="mb-0">{{ post.title }}</h3>
+                <div class="mb-1 text-muted">{{ post.created_time }}</div>
+                <p class="card-text mb-auto">{{ post.excerpt }}</p>
+                <a href="{{ post.get_url }}" class="stretched-link">阅读全文</a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+                <img src="{{ post.image.url }}" alt="" class="img-fluid bg-img-center">
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</main>
+{% endblock %}

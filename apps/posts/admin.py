@@ -11,6 +11,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('approved', 'created_time', 'category', 'tags')
     search_fields = ('title', 'body', 'author')
     actions = ['approve_posts']
+    exclude = ('comments',)
 
     def approve_posts(self, request, queryset):
         if request.user.has_perm('posts.approve_post'):

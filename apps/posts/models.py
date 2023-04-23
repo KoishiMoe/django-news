@@ -18,6 +18,7 @@ class Post(models.Model):
     :param tags: 新闻标签（可选）
     :param author: 新闻作者
     :param approved: 新闻是否通过审核
+
     """
     title = models.CharField(max_length=70)
     body = models.TextField()
@@ -25,10 +26,11 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     modified_time = models.DateTimeField(auto_now=True)
     excerpt = models.CharField(max_length=200, blank=True)
-    category = models.ForeignKey('posts.Category', on_delete=models.CASCADE)
+    category = models.ForeignKey('posts.Category', on_delete=models.PROTECT)
     tags = models.ManyToManyField('posts.Tag', blank=True)
-    author = models.ForeignKey('users.User', on_delete=models.CASCADE, blank=True)
+    author = models.ForeignKey('users.User', on_delete=models.PROTECT, blank=True)
     approved = models.BooleanField(default=False)
+    comments = models.ManyToManyField('comments.Comment', blank=True)
 
     def __str__(self):
         return self.title
@@ -43,6 +45,7 @@ class Category(models.Model):
     新闻分类
     """
     name = models.CharField(max_length=20)
+    parent = models.ForeignKey('self', related_name='sub_category', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name

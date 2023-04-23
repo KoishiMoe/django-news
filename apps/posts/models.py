@@ -1,4 +1,6 @@
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
@@ -39,6 +41,18 @@ class Post(models.Model):
         self.modified_time = timezone.now()
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'id': self.id})
+
+    def get_image_url(self):
+        try:
+            if self.image:
+                return self.image.url
+            else:
+                return ""
+        except ValueError:
+            return ""
+
 
 class Category(models.Model):
     """
@@ -49,6 +63,16 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        try:
+            if self.parent == self:
+                raise ValidationError('Category parent must be different from category itself.')
+            if self.parent.parent:
+                raise ValidationError('Category parent must be top category.')
+        except AttributeError:
+            pass
+        super().clean()
 
 
 class Tag(models.Model):

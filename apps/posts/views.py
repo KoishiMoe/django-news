@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 
 from .models import Post
 
@@ -13,4 +14,7 @@ def post_detail(request, id):
     :return:
     """
     post = get_object_or_404(Post, id=id)
-    return render(request, 'post.html', context={'post': post})
+    if post.approved or request.user.has_perm('posts.view_all_post'):
+        return render(request, 'post.html', context={'post': post})
+    else:
+        raise Http404  # 隐藏未通过审核的新闻id

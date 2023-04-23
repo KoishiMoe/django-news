@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.decorators import permission_required
 
 # Register your models here.
 
@@ -13,15 +14,13 @@ class PostAdmin(admin.ModelAdmin):
     actions = ['approve_posts']
     exclude = ('comments',)
 
+    @permission_required('posts.approve_post')
     def approve_posts(self, request, queryset):
-        if request.user.has_perm('posts.approve_post'):
-            if queryset.update(approved=True) == 1:
-                message_bit = '通过了1篇新闻'
-            else:
-                message_bit = '通过了%s篇新闻' % queryset.count()
-            self.message_user(request, '%s' % message_bit)
+        if queryset.update(approved=True) == 1:
+            message_bit = '通过了1篇新闻'
         else:
-            self.message_user(request, '你没有权限通过新闻')
+            message_bit = '通过了%s篇新闻' % queryset.count()
+        self.message_user(request, '%s' % message_bit)
 
     approve_posts.short_description = '通过选中的新闻'
 

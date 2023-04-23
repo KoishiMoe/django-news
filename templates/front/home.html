@@ -2,39 +2,74 @@
 {% load static %}
 
 {% block headblock %}
-<link rel="stylesheet" href="{% static 'front/css/home.css' %}">
-{#<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>#}
+    <link rel="stylesheet" href="{% static 'front/css/home.css' %}">
+    {#<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>#}
 {% endblock %}
 
 {% block title %}主页{% endblock %}
 
 {% block mainblock %}
-<main class="container">
-    <div class="p-4 p-md-5 mb-4 text-black rounded">
-        <div class="bg-img-center size-a-3 how1 pos-relative" style="background-image: url('{{ featured.get_image_url }}')">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 fst-italic">{{ featured.title }}</h1>
-                <p class="lead my-3">{{ featured.excerpt }}</p>
-                <p class="lead mb-0"><a href="{{ featured.get_absolute_url }}" class="text-black fw-bold">了解更多</a></p>
+    <main class="container">
+        <div class="card bg-light text-black card-bg-image"
+             style="background-image: url('{{ featured.get_image_url }}')">
+            <div class="card-body">
+                <h1 autocapitalize="words" class="card-title fst-italic">{{ featured.title }}</h1>
+                <a class="card-text stretched-link no-style-link" href="{{ featured.get_absolute_url }}">{{ featured.excerpt }}</a>
             </div>
         </div>
+
+
+    <div class="row row-cols-1 row-cols-sm-2 g-4">
+        {% for post in latest %}
+        <div class="col">
+            <div class="card">
+                <img src="{{ post.get_image_url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h4 class="card-title">{{ post.title }}</h4>
+                    <a class="card-text stretched-link no-style-link" href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
+                </div>
+                <div class="card-footer">
+                    <strong class="d-inline-block mb-2 text-primary">{{ post.category.get_full_name }}</strong>
+                    <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 
-    {% for post in latest %}
-    <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" href="{{ post.get_absolute_url }}">
-            <div class="col p-4 d-flex flex-column position-static">
-                <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>
-                <h3 class="mb-0">{{ post.title }}</h3>
-                <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>
-                <p class="card-text mb-auto">{{ post.excerpt }}</p>
-{#                <a href="{{ post.get_absolute_url }}">阅读全文</a>#}
-            </div>
-            <div class="col-auto d-none d-lg-block" >
-                <img src="{{ post.get_image_url }}" alt="" class="img-fluid bg-img-center" width="300" height="250">
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</main>
+
+
+{#            <div class="card mb-3" style="height: 300px">#}
+{#                <div class="row g-0">#}
+{#                    <div class="col-md-4" style="height: 100%">#}
+{#                        <img src="{{ post.get_image_url }}" alt="" class=" bg-img-center" style="height: 100%; object-fit: cover;">#}
+{#                    </div>#}
+{#                    <div class="col-md-8">#}
+{#                        <div class="card-body">#}
+{#                            <h3 class="card-title">{{ post.title }}</h3>#}
+{#                            <a class="card-text stretched-link"#}
+{#                               href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
+{##}
+{#                        <div class="col-md-6">#}
+{#                            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">#}
+{#                                <div class="col p-4 d-flex flex-column">#}
+{#                                    <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>#}
+{#                                    <h3 class="mb-0">{{ post.title }}</h3>#}
+{#                                    <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>#}
+{#                                    <a class="card-text mb-auto stretched-link no-style-link" href="{{ post.get_absolute_link }}">{{ post.excerpt }}</a>#}
+{#                                </div>#}
+{#                                <div class="col-auto d-none d-lg-block">#}
+{#                                    <img src="{{ post.get_image_url }}" alt="" class="img-fluid bg-img-center" width="300"#}
+{#                                         height="250">#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+
+
+    </main>
 {% endblock %}

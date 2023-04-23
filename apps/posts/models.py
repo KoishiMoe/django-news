@@ -64,6 +64,12 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_full_name(self):
+        if self.parent:
+            return self.parent.name + ' - ' + self.name
+        else:
+            return self.name
+
     def clean(self):
         try:
             if self.parent == self:

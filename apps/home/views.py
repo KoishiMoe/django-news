@@ -8,7 +8,7 @@ from posts.models import Post
 
 def home(request):
     # get 21 posts at most to reduce database query
-    posts = Post.objects.filter(approved=True).order_by('-created_time')[:21:-1]
+    posts = Post.objects.filter(approved=True).order_by('-created_time')[:21]
     if posts:
         featured = posts[0]
         latest = posts[1:]

@@ -3,3 +3,45 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.card-bg-image {
+  height: 300px; /* set your desired height */
+  width: 100%; /* set your desired width */
+  background-repeat: no-repeat;
+  background-size: cover; /* maintains aspect ratio and centers the image */
+  background-position: center center; /* centers the image */
+  cursor: pointer; /* change cursor to pointer on hover to indicate it's clickable */
+}
+
+.bg-image {
+  height: 300px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  cursor: pointer;
+}
+
+/* Alternating left and right image placement for odd and even numbered cards */
+.card:nth-child(even) .bg-image {
+  float: right;
+}
+
+.card:nth-child(odd) .bg-image {
+  float: left;
+}
+
+/* Classes to specify image placement */
+.bg-image-left {
+  margin-right: 30px; /* adjust this as needed to add space between the image and card text */
+}
+
+.bg-image-right {
+  margin-left: 30px; /* adjust this as needed to add space between the image and card text */
+}
+
+.no-style-link {
+    color: inherit;
+    text-decoration: none;
+}
+

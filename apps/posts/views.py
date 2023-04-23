@@ -15,6 +15,6 @@ def post_detail(request, id):
     """
     post = get_object_or_404(Post, id=id)
     if post.approved or request.user.has_perm('posts.view_all_post'):
-        return render(request, 'post.html', context={'post': post})
+        return render(request, 'front/post.html', context={'post': post})
     else:
         raise Http404  # 隐藏未通过审核的新闻id

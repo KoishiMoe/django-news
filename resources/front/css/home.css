@@ -50,3 +50,7 @@
   min-width: auto;
 }
 
+.carousel-inner {
+  margin-bottom: 80px; /* adjust the value as needed */
+}
+

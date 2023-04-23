@@ -6,7 +6,7 @@
     {#<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>#}
 {% endblock %}
 
-{% block title %}主页{% endblock %}
+{% block titleblock %}主页{% endblock %}
 
 {% block mainblock %}
     <main class="container">
@@ -21,14 +21,15 @@
         <div class="carousel-inner">
             {% for post in featured_posts %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ post.get_image_url }}" style="object-fit: cover; width: inherit; height: 400px;" alt="...">
-                <div class="carousel-caption d-none d-md-block">
+                <img src="{{ post.get_image_url }}" style="object-fit: cover; width: inherit; height: inherit; max-height: 300px" alt="...">
+                <div class="carousel-caption d-block">
                     <h1>{{ post.title }}</h1>
                     <a class="text stretched-link no-style-link" style="font-size: 1.5rem"
                        href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
                 </div>
             </div>
             {% endfor %}
+        </div>
     </div>
 
 

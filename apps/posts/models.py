@@ -32,6 +32,7 @@ class Post(models.Model):
     tags = models.ManyToManyField('posts.Tag', blank=True)
     author = models.ForeignKey('users.User', on_delete=models.PROTECT, blank=True)
     approved = models.BooleanField(default=False)
+    pinned = models.BooleanField(default=False)
     comments = models.ManyToManyField('comments.Comment', blank=True)
 
     def __str__(self):

@@ -24,6 +24,14 @@ class PostAdmin(admin.ModelAdmin):
 
     approve_posts.short_description = '通过选中的新闻'
 
+    @permission_required('posts.pin_post')
+    def pin_post(self, request, queryset):
+        if queryset.update(pinned=True) == 1:
+            message_bit = '置顶了1篇新闻'
+        else:
+            message_bit = '置顶了%s篇新闻' % queryset.count()
+        self.message_user(request, '%s' % message_bit)
+
     def save_model(self, request, obj, form, change):
         if not request.user.has_perm('posts.approve_post'):
             obj.approved = False

@@ -38,7 +38,7 @@
                 {% for i in categories %}
                     <li class="nav-item dropdown"> {#不加dropdown会让下拉菜单出现在错误的位置#}
                         <a class="nav-link dropdown-toggle" href="/category/{{ i.id }}" id="navbarDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           role="button" {# data-bs-toggle="dropdown" #} aria-expanded="false">
                             {{ i.name }}</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> {# 对齐末尾，避免尾端超出屏幕 #}
                             {% for j in i.subcategories %}

@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
@@ -31,7 +32,8 @@ class Post(models.Model):
         verbose_name = '文章'
         verbose_name_plural = '文章'
     title = models.CharField(max_length=70, verbose_name='标题')
-    body = models.TextField(verbose_name='内容')
+    # body = models.TextField(verbose_name='内容')
+    body = RichTextUploadingField(verbose_name='内容')
     image = models.ImageField(upload_to='posts/%Y/%m/%d', blank=True, verbose_name='头图')
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     modified_time = models.DateTimeField(auto_now=True, verbose_name='修改时间')
@@ -64,8 +66,8 @@ class Post(models.Model):
 
     def clean(self):
         try:
-            if self.pinned and not self.image:
-                raise ValidationError('Pinned post must have an image.')
+            if self.pinned and not (self.image and self.approved):
+                raise ValidationError('置顶新闻必须有头图且通过审核.')
         except AttributeError:
             pass
 

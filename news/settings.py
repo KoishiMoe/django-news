@@ -21,7 +21,6 @@ sys.path.insert(0, str(APPS_DIR))
 STATIC_ROOT = BASE_DIR / 'static'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -32,7 +31,6 @@ SECRET_KEY = 'django-insecure-x79phzc$g974xomf-)6&nof$80-b)jtj7*idh*(ks7ewmhwh&+
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -53,8 +51,9 @@ INSTALLED_APPS = [
     # 'qr_code',
     'bootstrap5',
     'home',
-    'django_summernote',
     'fontawesomefree',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -88,7 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'news.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -98,7 +96,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -118,7 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -129,7 +125,6 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -148,6 +143,20 @@ STATICFILES_DIRS = [
     BASE_DIR / 'resources'
 ]
 
+# CKEDITOR
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_RESTRICT_BY_DATE = True
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_FORCE_JPEG_COMPRESSION = True
+CKEDITOR_JPEG_COMPRESSION_QUALITY = 90
+CKEDITOR_ALLOW_NONIMAGE_FILES = False
+CKEDITOR_CONFIGS = {
+    'default': {
+        'height': 'auto',
+        'width': 'auto',
+    }
+}
 
 JAZZMIN_SETTINGS = {
     "site_title": "新闻管理系统",
@@ -167,5 +176,3 @@ JAZZMIN_SETTINGS = {
         {"name": "退出", "url": "home", "icon": "fas fa-sign-out-alt"},
     ],
 }
-
-

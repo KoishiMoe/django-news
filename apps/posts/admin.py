@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.decorators import permission_required
-from django_summernote.admin import SummernoteModelAdmin
+# from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
 
@@ -8,13 +8,13 @@ from django_summernote.admin import SummernoteModelAdmin
 from .models import Post, Category  # , Tag
 
 
-class PostAdmin(SummernoteModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'author', 'created_time', 'approved')
     list_filter = ('approved', 'created_time', 'category')
     search_fields = ('title', 'body', 'author')
     actions = ['approve_posts']
     # exclude = ('comments',)
-    summernote_fields = ('body',)
+    # summernote_fields = ('body',)
 
     @permission_required('posts.approve_post')
     def approve_posts(self, request, queryset):

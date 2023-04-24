@@ -1,3 +1,4 @@
+from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
@@ -20,3 +21,40 @@ def post_detail(request, id):
                                                            'categories': Category.objects.filter(parent=None)})
     else:
         raise Http404  # 隐藏未通过审核的新闻id
+
+
+def category_detail(request, id):
+    """
+    分类详情
+    :param request:
+    :param id: 分类id
+    :return:
+    """
+    category = get_object_or_404(Category, id=id)
+
+    posts = Post.objects.filter(category=category, approved=True).order_by('-created_time')
+    # pages = posts.count() // 20 + 1
+    # current_page = int(pg)
+    # if current_page > pages or current_page < 1 or pages == 0:
+    #     raise Http404
+    # posts_to_show = posts[(current_page - 1) * 20:current_page * 20]
+    # return render(request, 'front/category.html', context={'categories': Category.objects.filter(parent=None),
+    #                                                        'category': category,
+    #                                                        'posts': posts_to_show,
+    #                                                        'pages': range(1, pages + 1),
+    #                                                        'current_page': current_page})
+    paginator = Paginator(posts, 20)
+    page = request.GET.get('page')
+    try:
+        posts_to_show = paginator.page(page)
+    except PageNotAnInteger:
+        posts_to_show = paginator.page(1)
+    except EmptyPage:
+        posts_to_show = paginator.page(paginator.num_pages)
+    is_paginated = True if paginator.num_pages > 1 else False
+    return render(request, 'front/category.html', context={'categories': Category.objects.filter(parent=None),
+                                                           'category': category,
+                                                           'posts': posts_to_show,
+                                                           'is_paginated': is_paginated,
+                                                           'page_obj': posts_to_show,
+                                                           'paginator': paginator})

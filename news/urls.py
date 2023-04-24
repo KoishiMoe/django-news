@@ -23,8 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('panel/', include('panel.urls')),
     # path('martor/', include('martor.urls')),
-    path('posts/', include('posts.urls')),
+    path('', include('posts.urls')),
     path('comments/', include('comments.urls')),
+    path('', include('posts.urls')),
     path('', include('home.urls')),
     path('', include('users.urls')),
 ]

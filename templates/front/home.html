@@ -10,79 +10,59 @@
 
 {% block mainblock %}
     <main class="container">
-    <div id="carouselFeaturedPosts" class="carousel carousel-light slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            {% for post in featured_posts %}
-            <button type="button" data-bs-target="#carouselFeaturedPosts" data-bs-slide-to="{{ forloop.counter0 }}"
-                    class="{% if forloop.first %}active{% endif %}" aria-current="true"
-                    aria-label="Slide {{ forloop.counter0 }}"></button>
-            {% endfor %}
-        </div>
-        <div class="carousel-inner">
-            {% for post in featured_posts %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <img src="{{ post.get_image_url }}" style="object-fit: cover; width: inherit; height: inherit; max-height: 300px" alt="...">
-                <div class="carousel-caption d-block">
-                    <h1>{{ post.title }}</h1>
-                    <a class="text stretched-link no-style-link" style="font-size: 1.5rem"
-                       href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
-                </div>
+        <div id="carouselFeaturedPosts" class="carousel carousel-light slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for post in featured_posts %}
+                    <button type="button" data-bs-target="#carouselFeaturedPosts"
+                            data-bs-slide-to="{{ forloop.counter0 }}"
+                            class="{% if forloop.first %}active{% endif %}" aria-current="true"
+                            aria-label="Slide {{ forloop.counter0 }}"></button>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-    </div>
-
-
-    <div class="row row-cols-1 row-cols-sm-2 g-4">
-        {% for post in latest %}
-        <div class="col">
-            <div class="card h-100">
-                <img src="{{ post.get_image_url }}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">{{ post.title }}</h4>
-                    <a class="card-text stretched-link no-style-link" href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
-                </div>
-                <div class="card-footer">
-                    <strong class="d-inline-block mb-2 text-primary">{{ post.category.get_full_name }}</strong>
-                    <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>
-                </div>
+            <div class="carousel-inner">
+                {% for post in featured_posts %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ post.get_image_url }}"
+                             style="object-fit: cover; width: inherit; height: inherit; max-height: 300px" alt="...">
+                        <div class="carousel-caption d-block">
+                            <h1>{{ post.title }}</h1>
+                            <a class="text stretched-link no-style-link" style="font-size: 1.5rem"
+                               href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        {% endfor %}
-    </div>
 
-
-{#            <div class="card mb-3" style="height: 300px">#}
-{#                <div class="row g-0">#}
-{#                    <div class="col-md-4" style="height: 100%">#}
-{#                        <img src="{{ post.get_image_url }}" alt="" class=" bg-img-center" style="height: 100%; object-fit: cover;">#}
-{#                    </div>#}
-{#                    <div class="col-md-8">#}
-{#                        <div class="card-body">#}
-{#                            <h3 class="card-title">{{ post.title }}</h3>#}
-{#                            <a class="card-text stretched-link"#}
-{#                               href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-
-{##}
-{#                        <div class="col-md-6">#}
-{#                            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">#}
-{#                                <div class="col p-4 d-flex flex-column">#}
-{#                                    <strong class="d-inline-block mb-2 text-primary">{{ post.category }}</strong>#}
-{#                                    <h3 class="mb-0">{{ post.title }}</h3>#}
-{#                                    <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>#}
-{#                                    <a class="card-text mb-auto stretched-link no-style-link" href="{{ post.get_absolute_link }}">{{ post.excerpt }}</a>#}
-{#                                </div>#}
-{#                                <div class="col-auto d-none d-lg-block">#}
-{#                                    <img src="{{ post.get_image_url }}" alt="" class="img-fluid bg-img-center" width="300"#}
-{#                                         height="250">#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-
-
+        {% if latest %}
+            <div class="row row-cols-1 row-cols-sm-2 g-4">
+                {% for post in latest %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ post.get_image_url }}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ post.title }}</h4>
+                                <a class="card-text stretched-link no-style-link"
+                                   href="{{ post.get_absolute_url }}">{{ post.excerpt }}</a>
+                            </div>
+                            <div class="card-footer">
+                                <strong class="d-inline-block mb-2 text-primary">{{ post.category.get_full_name }}</strong>
+                                <div class="mb-1 text-muted">{{ post.created_time|date:"Y年m月d日" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="col">
+               <div class="row text-center">
+                    <h2>没有文章</h2>
+                    <p>这里什么都没有，快去写一篇文章吧！</p>
+                </div>
+                <div class="row">
+                    <img src="https://http.cat/204" alt="Sad Panda" class="img-fluid text-center" style="padding-inline: 25%">
+                </div>
+            </div>
+        {% endif %}
     </main>
 {% endblock %}

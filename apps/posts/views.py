@@ -33,16 +33,6 @@ def category_detail(request, id):
     category = get_object_or_404(Category, id=id)
 
     posts = Post.objects.filter(category=category, approved=True).order_by('-created_time')
-    # pages = posts.count() // 20 + 1
-    # current_page = int(pg)
-    # if current_page > pages or current_page < 1 or pages == 0:
-    #     raise Http404
-    # posts_to_show = posts[(current_page - 1) * 20:current_page * 20]
-    # return render(request, 'front/category.html', context={'categories': Category.objects.filter(parent=None),
-    #                                                        'category': category,
-    #                                                        'posts': posts_to_show,
-    #                                                        'pages': range(1, pages + 1),
-    #                                                        'current_page': current_page})
     paginator = Paginator(posts, 10)
     page = request.GET.get('page')
     try:

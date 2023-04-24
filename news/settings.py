@@ -154,8 +154,9 @@ JAZZMIN_SETTINGS = {
     "site_header": "新闻管理系统",
     "site_logo": "/front/images/icons/logo.png",
     "welcome_sign": "欢迎使用新闻管理系统",
-    "search_model": ["users.User", "auth.Group", "posts.Post"],
+    "search_model": ["users.User", "posts.Post"],
     "user_avatar": None,
+    "dark_mode_theme": "darkly",
     "topmenu_links": [
         {"name": "首页", "url": "admin:index", "permissions": ["auth.view_user"]},
         {"model": "users.User"},
@@ -165,7 +166,6 @@ JAZZMIN_SETTINGS = {
         {"name": "分类", "url": "admin:posts_category_changelist", "permissions": ["posts.view_category"]},
         {"name": "退出", "url": "home", "icon": "fas fa-sign-out-alt"},
     ],
-    "show_ui_builder": True,
 }
 
 

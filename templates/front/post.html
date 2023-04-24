@@ -27,9 +27,9 @@
         <div class="col-md-12">
             {# 防XSS #}
             {% if post.approved %}
-            <p class="mt-0 mb-3">{{ post.body|safe }}</p>
+            <p class="mt-0 mb-3">{{ post.body|linebreaksbr|safe }}</p>
             {% else %}
-            <p class="mt-0 mb-3">{{ post.body|escape }}</p>
+            <p class="mt-0 mb-3">{{ post.body|linebreaksbr|escape }}</p>
             {% endif %}
         </div>
     </div>

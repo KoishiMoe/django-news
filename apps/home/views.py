@@ -11,8 +11,6 @@ def home(request):
     posts = Post.objects.filter(approved=True).order_by('-created_time')
     if posts:
         featured_posts = posts.filter(pinned=True)[:min(5, len(posts))]
-        if len(featured_posts) < 1:
-            featured_posts = posts[:min(5, len(posts))]
         latest = []
         count = 0
         for post in posts:

@@ -10,7 +10,7 @@
 
 {% block mainblock %}
     <main class="container">
-    <div id="carouselFeaturedPosts" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div id="carouselFeaturedPosts" class="carousel carousel-light slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             {% for post in featured_posts %}
             <button type="button" data-bs-target="#carouselFeaturedPosts" data-bs-slide-to="{{ forloop.counter0 }}"

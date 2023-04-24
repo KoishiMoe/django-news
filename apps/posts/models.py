@@ -54,6 +54,13 @@ class Post(models.Model):
         except ValueError:
             return ""
 
+    def clean(self):
+        try:
+            if self.pinned and not self.image:
+                raise ValidationError('Pinned post must have an image.')
+        except AttributeError:
+            pass
+
 
 class Category(models.Model):
     """

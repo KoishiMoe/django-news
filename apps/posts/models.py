@@ -20,8 +20,16 @@ class Post(models.Model):
     :param tags: 新闻标签（可选）
     :param author: 新闻作者
     :param approved: 新闻是否通过审核
-
+    :param pinned: 新闻是否置顶
     """
+    class Meta:
+        permissions = (
+            ('approve_post', 'Can approve post'),
+            ('pin_post', 'Can pin post'),
+            ('change_author', 'Can change author'),
+        )
+        verbose_name = '文章'
+        verbose_name_plural = '文章'
     title = models.CharField(max_length=70)
     body = models.TextField()
     image = models.ImageField(upload_to='posts/%Y/%m/%d', blank=True)
@@ -66,6 +74,9 @@ class Category(models.Model):
     """
     新闻分类
     """
+    class Meta:
+        verbose_name = '分类'
+        verbose_name_plural = '分类'
     name = models.CharField(max_length=20)
     parent = models.ForeignKey('self', related_name='sub_category', on_delete=models.CASCADE, blank=True, null=True)
 
@@ -97,6 +108,9 @@ class Tag(models.Model):
     """
     新闻标签
     """
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = '标签'
     name = models.CharField(max_length=20)
 
     def __str__(self):

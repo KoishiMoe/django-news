@@ -14,4 +14,8 @@ class User(AbstractUser):
     username = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
+        return self.username
+
+    @property
+    def name(self):
         return self.display_name or self.username

@@ -19,12 +19,12 @@ class PostAdmin(SummernoteModelAdmin):
     @permission_required('posts.approve_post')
     def approve_posts(self, request, queryset):
         if queryset.update(approved=True) == 1:
-            message_bit = '通过了1篇新闻'
+            message_bit = '通过了1篇文章'
         else:
-            message_bit = '通过了%s篇新闻' % queryset.count()
+            message_bit = '通过了%s篇文章' % queryset.count()
         self.message_user(request, '%s' % message_bit)
 
-    approve_posts.short_description = '通过选中的新闻'
+    approve_posts.short_description = '通过选中的 文章'
 
     @permission_required('posts.pin_post')
     def pin_post(self, request, queryset):

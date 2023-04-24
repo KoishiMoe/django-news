@@ -43,7 +43,7 @@ def category_detail(request, id):
     #                                                        'posts': posts_to_show,
     #                                                        'pages': range(1, pages + 1),
     #                                                        'current_page': current_page})
-    paginator = Paginator(posts, 20)
+    paginator = Paginator(posts, 10)
     page = request.GET.get('page')
     try:
         posts_to_show = paginator.page(page)

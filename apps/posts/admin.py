@@ -5,15 +5,15 @@ from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
 
-from .models import Post, Category, Tag
+from .models import Post, Category  # , Tag
 
 
 class PostAdmin(SummernoteModelAdmin):
     list_display = ('id', 'title', 'author', 'created_time', 'approved')
-    list_filter = ('approved', 'created_time', 'category', 'tags')
+    list_filter = ('approved', 'created_time', 'category')
     search_fields = ('title', 'body', 'author')
     actions = ['approve_posts']
-    exclude = ('comments',)
+    # exclude = ('comments',)
     summernote_fields = ('body',)
 
     @permission_required('posts.approve_post')
@@ -48,4 +48,4 @@ class PostAdmin(SummernoteModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
-admin.site.register(Tag)
+# admin.site.register(Tag)

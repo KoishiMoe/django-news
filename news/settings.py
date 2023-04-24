@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'charts',
     'posts',
-    # 'comments',
+    'comments',
     # 'panel',
     'users',
     # 'martor',

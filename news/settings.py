@@ -159,10 +159,12 @@ CKEDITOR_CONFIGS = {
 }
 
 JAZZMIN_SETTINGS = {
-    "site_title": "新闻管理系统",
-    "site_header": "新闻管理系统",
+    "site_title": "财有料-后台管理系统",
+    "site_header": "财有料-管理系统",
+    "site_brand": "财有料",
     "site_logo": "/front/images/icons/logo.png",
-    "welcome_sign": "欢迎使用新闻管理系统",
+    "welcome_sign": "欢迎使用财有料管理系统",
+    "copyright": "财有料",
     "search_model": ["users.User", "posts.Post"],
     "user_avatar": None,
     "dark_mode_theme": "darkly",

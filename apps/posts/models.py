@@ -33,7 +33,7 @@ class Post(models.Model):
     author = models.ForeignKey('users.User', on_delete=models.PROTECT, blank=True)
     approved = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
-    comments = models.ManyToManyField('comments.Comment', blank=True)
+    # comments = models.ManyToManyField('comments.Comment', blank=True)
 
     def __str__(self):
         return self.title

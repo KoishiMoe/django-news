@@ -1,2 +1,5 @@
 /logs/
+/static/
+/media/
+/apps/**/migrations/
 db.sqlite3

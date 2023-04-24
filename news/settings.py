@@ -43,14 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'charts',
+    # 'charts',
     'posts',
-    'comments',
-    'panel',
+    # 'comments',
+    # 'panel',
     'users',
     # 'martor',
-    'qr_code',
+    # 'qr_code',
     'bootstrap5',
+    'home',
 ]
 
 MIDDLEWARE = [

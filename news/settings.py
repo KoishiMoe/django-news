@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     # 'qr_code',
     'bootstrap5',
     'home',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [

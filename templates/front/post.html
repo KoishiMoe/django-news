@@ -2,38 +2,40 @@
 {% load static %}
 
 {% block titleblock %}
-{{ post.title }}
+    {{ post.title }}
 {% endblock %}
 
 {% block mainblock %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <img src="{{ post.get_image_url }}" alt="Article image" class="img-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img src="{{ post.get_image_url }}" alt="Article image" class="img-fluid">
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <h1 class="mt-3 mb-3">{{ post.title }}</h1>
-        </div>
-        <div class="col-md-4 text-right">
-            <p class="mt-3 mb-0">作者：{{ post.author.name }}</p>
-            <p class="mt-0 mb-0">分类：{{ post.category.get_full_name }}</p>
-            <p class="mt-0 mb-3">创建于{{ post.created_time|date:"Y年m月d日" }}</p>
-            <p class="mt-0 mb-3">最后修改于{{ post.modified_time|date:"Y年m月d日" }}</p>
-        </div>
-    </div>
-    <div class="row">
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="fw-bold">{{ post.title }}</h1>
+  </div>
+  <div class="col-md-12 mt-4">
+    <ul class="list-inline text-muted">
+      <li class="list-inline-item"><i class="fas fa-user me-2"></i>{{ post.author.name }}</li>
+      <li class="list-inline-item"><i class="fas fa-folder-open me-2"></i><a style="color: inherit" href="{% url 'category_detail' post.category.id %}">{{ post.category.get_full_name }}</a></li>
+      <li class="list-inline-item"><i class="far fa-calendar-alt me-2"></i>创建于{{ post.created_time|date:"Y年m月d日" }}</li>
+      <li class="list-inline-item"><i class="far fa-calendar-check me-2"></i>最后修改于{{ post.modified_time|date:"Y年m月d日" }}</li>
+    </ul>
+  </div>
+</div>
+
         <div class="col-md-12">
             {# 防XSS #}
             {% if post.approved %}
-            <p class="mt-0 mb-3">{{ post.body|safe|linebreaksbr }}</p>
+                <p class="mt-0 mb-3">{{ post.body|safe|linebreaksbr }}</p>
             {% else %}
-            <p class="mt-0 mb-3">{{ post.body|escape|linebreaksbr }}</p>
+                <p class="mt-0 mb-3">{{ post.body|escape|linebreaksbr }}</p>
             {% endif %}
         </div>
     </div>
-</div>
+    </div>
 {% endblock %}
 
 

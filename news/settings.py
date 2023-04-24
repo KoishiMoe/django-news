@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'home',
     'django_summernote',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [

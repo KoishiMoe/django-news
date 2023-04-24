@@ -112,6 +112,17 @@ django = "*"
 dev = ["django-dummy-plug", "pytest", "pytest-django"]
 
 [[package]]
+name = "fontawesomefree"
+version = "6.4.0"
+description = "Font Awesome Free"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fontawesomefree-6.4.0-py3-none-any.whl", hash = "sha256:e12edad71b6cf6993fc7c6aea6367e131f2f247b6435faca99b12329bacd2b27"},
+]
+
+[[package]]
 name = "mysqlclient"
 version = "2.1.1"
 description = "Python interface to MySQL"
@@ -276,4 +287,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4b5b05fa54c17089dbb8621539629d8af77afeb7295b9560fc4c607fe1b7b83e"
+content-hash = "c81bf7c557e64cf7186ea31f71b4b81045b03d268f12a65c0374e90f5f7a284a"

@@ -1,0 +1,23 @@
+{% extends 'front/base.html' %}
+{% load bootstrap5 %}
+
+{% block titleblock %}
+    登陆
+{% endblock %}
+
+{% block mainblock %}
+    <div class="container py-5">
+        <h1>登录</h1>
+        <form action="" method="post" href="{% url 'register' %}">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">登陆</button>
+        </form>
+        <p class="text-left">没有帐号？<a href="{% url 'register' %}">注册</a></p>
+    </div>
+{% endblock %}

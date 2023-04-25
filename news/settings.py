@@ -173,7 +173,7 @@ JAZZMIN_SETTINGS = {
         {"model": "users.User"},
         {"name": "组", "url": "admin:auth_group_changelist", "permissions": ["auth.view_group"]},
         {"name": "文章", "url": "admin:posts_post_changelist", "permissions": ["posts.view_post"]},
-        # {"name": "评论", "url": "admin:comments_comment_changelist", "permissions": ["comments.view_comment"]},
+        {"name": "评论", "url": "admin:comments_comment_changelist", "permissions": ["comments.view_comment"]},
         {"name": "分类", "url": "admin:posts_category_changelist", "permissions": ["posts.view_category"]},
         {"name": "退出", "url": "home", "icon": "fas fa-sign-out-alt"},
     ],

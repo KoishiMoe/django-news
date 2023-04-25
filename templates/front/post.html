@@ -53,7 +53,8 @@
                     <div class="row-cols-md-1">
                         <label>
                             <textarea class="form-control" name="content" rows="ma"
-                                      required>请输入评论，最大255个字符</textarea>
+                                      aria-describedby="contentHelp"></textarea>
+                            <small id="contentHelp" class="form-text text-muted">请输入评论，最大255个字符</small>
                         </label>
                     </div>
                     <div class="row-col-md-12 mt-3">
@@ -81,7 +82,7 @@
                 {% for comment in comments %}
                     <div class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ comment.author.name }}</h5>
+                            <h5 class="mb-1 fa fa-user-edit">{{ comment.author.name }}</h5>
                             <small class="text-muted">{{ comment.created_time|timesince }}前</small>
                         </div>
                         <p class="mb-1">{{ comment.content|escape|linebreaksbr }}</p>

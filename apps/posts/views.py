@@ -48,7 +48,8 @@ def category_detail(request, id):
     """
     category = get_object_or_404(Category, id=id)
 
-    posts = Post.objects.filter(category=category, approved=True).order_by('-created_time')
+    posts = Post.objects.filter(category__in=[category] + list(category.subcategories), approved=True)\
+        .order_by('-created_time')
     paginator = Paginator(posts, 10)
     page = request.GET.get('page')
     try:

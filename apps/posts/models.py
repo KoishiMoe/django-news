@@ -96,7 +96,7 @@ class Category(models.Model):
         try:
             if self.parent == self:
                 raise ValidationError('不能将自己作为父分类.')
-            if self.parent.parent or (self.parent and self.subcategories.count()):
+            if self.parent.parent:
                 raise ValidationError('分类最多只能有两级.')
         except AttributeError:
             pass

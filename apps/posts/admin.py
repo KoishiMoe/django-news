@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.decorators import permission_required
+
 # from django_summernote.admin import SummernoteModelAdmin
 
 # Register your models here.
@@ -11,7 +12,7 @@ from .models import Post, Category  # , Tag
 class PostAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'author', 'created_time', 'approved')
     list_filter = ('approved', 'created_time', 'category')
-    search_fields = ('title', 'body', 'author')
+    search_fields = ('title', 'body', 'author__username', 'author__display_name')
     actions = ['approve_posts']
     # exclude = ('comments',)
     # summernote_fields = ('body',)

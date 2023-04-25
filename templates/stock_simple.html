@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <script src="/static/js/echarts.min.js"></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+    <title>股票</title>
+</head>
+<body>
+    <div id="chart_sh" style="width: 800px;height:400px;"></div>
+    <div id="chart_sz" style="width: 800px;height:400px;"></div>
+    <script>
+        // 初始化图表实例
+        var chart_sh = echarts.init(document.getElementById('chart_sh'));
+        var chart_sz = echarts.init(document.getElementById('chart_sz'));
+
+        // 设置图表选项
+        var option_sh = {
+            title: {
+                text: '上证指数'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                },
+                formatter: function (params) {
+                    // 格式化鼠标悬停时显示的内容
+                    var data = params[0].data;
+                    var res = data.date_sh + '<br/>';
+                    res += '开盘价：' + data.open_price_sh + '<br/>';
+                    res += '收盘价：' + data.close_price_sh + '<br/>';
+                    res += '最高价：' + data.highest_price_sh + '<br/>';
+                    res += '最低价：' + data.lowest_price_sh + '<br/>';
+                    res += '日k：' + params[0].value + '<br/>';
+                    res += 'MA5：' + params[1].value + '<br/>';
+                    res += 'MA10：' + params[2].value + '<br/>';
+                    res += 'MA30：' + params[3].value;
+                    return res;
+                }
+            },
+            legend: {
+                data: ['日k', 'MA5', 'MA10', 'MA30']
+            },
+            xAxis: {
+                type: 'category',
+                data: [] // 这里先留空，等待从后端获取数据
+            },
+            yAxis: {
+                type: 'value',
+                scale: true,
+                splitArea: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: '日k',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#c23531'
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#2f4554'
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#61a0a8'
+                    }
+                },
+                {
+                    name: 'MA30',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#d48265'
+                    }
+                }
+            ]
+        };
+
+        var option_sz = {
+            title: {
+                text: '深证指数'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                },
+                formatter: function(params) {
+                    // 格式化鼠标悬停时显示的内容
+                    var data = params[0].data;
+                    var res = data.date_sz + '<br/>';
+                    res += '开盘价：' + data.open_price_sz + '<br/>';
+                    res += '收盘价：' + data.close_price_sz + '<br/>';
+                    res += '最高价：' + data.highest_price_sz + '<br/>';
+                    res += '最低价：' + data.lowest_price_sz + '<br/>';
+                    res += '日k：' + params[0].value + '<br/>';
+                    res += 'MA5：' + params[1].value + '<br/>';
+                    res += 'MA10：' + params[2].value + '<br/>';
+                    res += 'MA30：' + params[3].value;
+                    return res;
+                }
+            },
+            legend: {
+                data: ['日k', 'MA5', 'MA10', 'MA30']
+            },
+            xAxis: {
+                type: 'category',
+                data: [] // 这里先留空，等待从后端获取数据
+            },
+            yAxis: {
+                type: 'value',
+                scale: true,
+                splitArea: {
+                    show: true
+                }
+            },
+            series: [
+                {
+                    name: '日k',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#c23531'
+                    }
+                },
+                {
+                    name: 'MA5',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#2f4554'
+                    }
+                },
+                {
+                    name: 'MA10',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#61a0a8'
+                    }
+                },
+                {
+                    name: 'MA30',
+                    type: 'line',
+                    data: [], // 这里先留空，等待从后端获取数据
+                    itemStyle: {
+                        color: '#d48265'
+                    }
+                }
+            ]
+        };
+
+        // 从后端获取数据并渲染到图表上
+        $.get('/stock_simple', function (data) {
+            // data是一个包含两个数组的对象，分别对应上证指数和深证指数的数据
+            var stocks_sh = data.stocks_sh;
+            var stocks_sz = data.stocks_sz;
+
+            // 遍历上证指数的数据，提取日期和日k，并计算MA5，MA10，MA30
+            var dates_sh = [];
+            var klines_sh = [];
+            var ma5_sh = [];
+            var ma10_sh = [];
+            var ma30_sh = [];
+            for (var i = 0; i < stocks_sh.length; i++) {
+                var stock = stocks_sh[i];
+                dates_sh.push(stock.date_sh);
+                klines_sh.push(stock.close_price_sh);
+                if (i >= 4) {
+                    // 计算MA5
+                    var sum = 0;
+                    for (var j = i - 4; j <= i; j++) {
+                        sum += stocks_sh[j].close_price_sh;
+                    }
+                    ma5_sh.push(sum / 5);
+                } else {
+                    ma5_sh.push('-');
+                }
+                if (i >= 9) {
+                    // 计算MA10
+                    var sum = 0;
+                    for (var j = i - 9; j <= i; j++) {
+                        sum += stocks_sh[j].close_price_sh;
+                    }
+                    ma10_sh.push(sum / 10);
+                } else {
+                    ma10_sh.push('-');
+                }
+                if (i >= 29) {
+                    // 计算MA30 var sum = 0;
+                    for (var j = i - 29; j <= i; j++) {
+                        sum += stocks_sh[j].close_price_sh;
+                    }
+                    ma30_sh.push(sum / 30);
+                } else {
+                    ma30_sh.push('-');
+                }
+            }
+
+            // 遍历深证指数的数据，提取日期和日k，并计算MA5，MA10，MA30
+            var dates_sz = [];
+            var klines_sz = [];
+            var ma5_sz = [];
+            var ma10_sz = [];
+            var ma30_sz = [];
+            for (var i = 0; i < stocks_sz.length; i++) {
+                var stock = stocks_sz[i];
+                dates_sz.push(stock.date_sz);
+                klines_sz.push(stock.close_price_sz);
+                if (i >= 4) {
+                    // 计算MA5
+                    var sum = 0;
+                    for (var j = i - 4; j <= i; j++) {
+                        sum += stocks_sz[j].close_price_sz;
+                    }
+                    ma5_sz.push(sum / 5);
+                } else {
+                    ma5_sz.push('-');
+                }
+                if (i >= 9) {
+                    // 计算MA10
+                    var sum = 0;
+                    for (var j = i - 9; j <= i; j++) {
+                        sum += stocks_sz[j].close_price_sz;
+                    }
+                    ma10_sz.push(sum / 10);
+                } else {
+                    ma10_sz.push('-');
+                }
+                if (i >= 29) {
+                    // 计算MA30
+                    var sum = 0;
+                    for (var j = i - 29; j <= i; j++) {
+                        sum += stocks_sz[j].close_price_sz;
+                    }
+                    ma30_sz.push(sum / 30);
+                } else {
+                    ma30_sz.push('-');
+                }
+            }
+
+            // 将数据填充到图表选项中
+            option_sh.xAxis.data = dates_sh;
+            option_sh.series[0].data = klines_sh;
+            option_sh.series[1].data = ma5_sh;
+            option_sh.series[2].data = ma10_sh;
+            option_sh.series[3].data = ma30_sh;
+
+            option_sz.xAxis.data = dates_sz;
+            option_sz.series[0].data = klines_sz;
+            option_sz.series[1].data = ma5_sz;
+            option_sz.series[2].data = ma10_sz;
+            option_sz.series[3].data = ma30_sz;
+
+            // 设置图表实例的选项并渲染
+            chart_sh.setOption(option_sh);
+            chart_sz.setOption(option_sz);
+        });
+    </script>
+
+</body>
+</html>

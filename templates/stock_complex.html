@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Style the horizontal navigation bar */
+        ul {
+            list-style-type: none;
+            margin-left: 200px;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        /* Style the links inside the navigation bar */
+        li {
+          float: left;
+        }
+
+        /* Style the links inside the navigation bar */
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+
+        /* Change the color of links on hover */
+        li a:hover {
+          background-color: #111;
+        }
+
+        /* Style the links inside the vertical navigation bar */
+        ul.vertical li a {
+          display: block; /* Display the links as blocks, for responsiveness */
+        }
+    </style>
+    <style>
+        /* Style the sidebar - fixed full height */
+        .sidebar {
+          height: 100%;
+          width: 200px;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: #333;
+          overflow-x: hidden;
+        }
+
+        /* Style sidebar links */
+        .sidebar a {
+          display: block;
+          color: white;
+          padding: 16px;
+          text-decoration: none;
+        }
+
+        /* Style links on mouse-over */
+        .sidebar a:hover {
+          background-color: #111;
+        }
+
+        /* Style the main content */
+        .main {
+          margin-left: 200px; /* Same as the width of the sidebar */
+        }
+
+        /* Add a transition effect when opening the sidebar */
+        .main, .sidebar {
+          transition: all .4s ease-out;
+        }
+
+        /* Hide sidebar on small screens */
+        @media screen and (max-width: 700px) {
+          .sidebar {
+            width: 0;
+            display: none;
+          }
+          .main {
+            margin-left: 0; /* Set margin to zero when sidebar is hidden */
+          }
+        }
+
+        /* Toggle button style */
+        .openbtn {
+          font-size: 20px;
+          cursor: pointer;
+          background-color: #333;
+          color: white;
+          padding: 10.8px 42px;
+          border: none;
+        }
+
+        /* Position the toggle button */
+        .openbtn {
+          position: fixed;
+          top: 0;
+          left: 0;
+        }
+
+        /* Close button style */
+        .closebtn {
+          font-size: 20px;
+          cursor: pointer;
+          background-color: #333;
+          color: white;
+          padding: 10.8px 15px;
+          border: none;
+        }
+
+        /* Position the close button inside the sidebar */
+        .closebtn {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+
+    </style>
+    <title>股票详细内容</title>
+</head>
+
+<body marginheight="0" marginwidth="0">
+    <!-- Add a horizontal navigation bar -->
+    <ul>
+        <li><a><button id="openbtn" class="openbtn" onclick="openNav()">打开导航栏☰</button></a></li>
+        <li><a href="#home">首页</a></li>
+        <li><a href="#news">行情</a></li>
+        <li><a href="#funds">基金</a></li>
+        <li><a href="#selects">选股</a></li>
+        <li><a href="#deals">交易</a></li>
+        <li><a href="#datas">数据</a></li>
+        <li><a href="#adds">增值服务</a></li>
+        <li><a href="#contact">联系我们</a></li>
+        <li><a href="#about">关于我们</a></li>
+    </ul>
+
+    <div id="sidebar" class="sidebar">
+        <a><button id="closebtn" class="closebtn" onclick="closeNav()">关闭导航栏☰</button></a>
+
+        <a href="#shanghai">上海股市</a>
+        <a href="#shenzhen">深圳股市</a>
+        <a href="#hongkong">香港股市</a>
+        <a href="#newyork">纽约股市</a>
+        <a href="#more">更多· · ·</a>
+        <a href="#setting">⚙设置</a>
+    </div>
+
+<!-- Add a div to hold the main content -->
+<div id="main" class="main">
+
+    <script>
+        // Get the sidebar
+        var sidebar = document.getElementById("sidebar");
+
+        // Get the main content
+        var main = document.getElementById("main");
+
+        // Get the button
+        var btn = document.getElementById("openbtn");
+
+        // Define a function to open the sidebar
+        function openNav() {
+          sidebar.style.width = "200px"; // Set the width of the sidebar
+          main.style.marginLeft = "200px"; // Move the main content to the right
+          btn.style.display = "none"; // Hide the button
+        }
+
+        // Define a function to close the sidebar
+        function closeNav() {
+          sidebar.style.width = "0"; // Set the width of the sidebar to zero
+          main.style.marginLeft = "0"; // Move the main content back to the left
+          btn.style.display = "block"; // Show the button
+        }
+
+        // Add a click event listener to the sidebar links
+        for (var i = 0; i < sidebar.getElementsByTagName("a").length; i++) {
+          sidebar.getElementsByTagName("a")[i].addEventListener("click", closeNav);
+        }
+    </script>
+
+    <header class="container">
+        <div class="row liebiao">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="background-color: #f0f0f0; font-weight: bold; font-size: 36px;">上证指数</div>
+                    <div class="panel-body">
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">日期</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">股票代码</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">股票名称</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">开盘价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">收盘价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">最高价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">最低价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">主力净流入</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">涨跌幅</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for stock in stockc_sh %}
+                                <tr >
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: center;">{{ stock.stock_date_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: center;">{{ stock.stock_code_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: left;">{{ stock.stock_name_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;">{{ stock.stock_open_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_close_sh > stock.stock_open_sh %}red{% elif stock.stock_close_sh < stock.stock_open_sh %}green{% else %}black{% endif %};">{{ stock.stock_close_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_highest_sh > stock.stock_open_sh %}red{% elif stock.stock_highest_sh < stock.stock_open_sh %}green{% else %}black{% endif %};">{{ stock.stock_highest_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_lowest_sh > stock.stock_open_sh %}red{% elif stock.stock_lowest_sh < stock.stock_open_sh %}green{% else %}black{% endif %};">{{ stock.stock_lowest_sh }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_main_purchase_sh > 0.0 %}red{% elif stock.stock_main_purchase_sh < 0.0 %}green{% else %}black{% endif %};">{{ stock.stock_main_purchase_sh }}{% if stock.stock_main_purchase_sh != 0.0 %}万{% endif %}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_increase_sh > 0.0 %}red{% elif stock.stock_increase_sh < 0.0 %}green{% else %}black{% endif %};">{{ stock.stock_increase_sh }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                 <div class="panel-heading" style="background-color: #f0f0f0; font-weight: bold; font-size: 36px;">深证指数</div>
+                    <div class="panel-body">
+                        <table style="border-collapse: collapse; width: 100%;">
+                            <thead>
+                                <tr style="background-color: #f2f2f2;">
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">日期</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">股票代码</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">股票名称</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">开盘价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">收盘价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">最高价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">最低价</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">主力净流入</th>
+                                    <th style="border: 1px solid #999999; padding: 10px; text-align: center;">涨跌幅</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for stock in stockc_sz %}
+                                <tr >
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: center;">{{ stock.stock_date_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: center;">{{ stock.stock_code_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: left;">{{ stock.stock_name_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;">{{ stock.stock_open_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_close_sz > stock.stock_open_sz %}red{% elif stock.stock_close_sz < stock.stock_open_sz %}green{% else %}black{% endif %};">{{ stock.stock_close_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_highest_sz > stock.stock_open_sz %}red{% elif stock.stock_highest_sz < stock.stock_open_sz %}green{% else %}black{% endif %};">{{ stock.stock_highest_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_lowest_sz > stock.stock_open_sz %}red{% elif stock.stock_lowest_sz < stock.stock_open_sz %}green{% else %}black{% endif %};">{{ stock.stock_lowest_sz }}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_main_purchase_sz > 0.0 %}red{% elif stock.stock_main_purchase_sz < 0.0 %}green{% else %}black{% endif %};">{{ stock.stock_main_purchase_sz }}{% if stock.stock_main_purchase_sz != 0.0 %}万{% endif %}</td>
+                                    <td style="border: 1px solid #999999; padding: 10px; text-align: right;color:{% if stock.stock_increase_sz > 0.0 %}red{% elif stock.stock_increase_sz < 0.0 %}green{% else %}black{% endif %};">{{ stock.stock_increase_sz }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                 </div>
+            </div>
+        </div>
+
+
+    </header>
+</div>
+</body>
+</html>
